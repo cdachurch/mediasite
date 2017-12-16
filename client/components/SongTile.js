@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-import { parseYouTubeLink } from './YouTube';
+import { parseYouTubeLink } from "./YouTube";
 
 export default class SongTile extends React.Component {
   render() {
@@ -9,7 +9,11 @@ export default class SongTile extends React.Component {
     let youTubeLink;
     if (this.props.youTubeLink) {
       let youTubeUrl = parseYouTubeLink(this.props.youTubeLink, false);
-      youTubeLink = <a href={youTubeUrl} target='_blank'>YouTube <i className="material-icons tiny">call_made</i></a>
+      youTubeLink = (
+        <a href={youTubeUrl} target="_blank">
+          YouTube <i className="material-icons tiny">call_made</i>
+        </a>
+      );
     }
     return (
       <div className="col l4 m6 s12">
@@ -21,11 +25,11 @@ export default class SongTile extends React.Component {
           </div>
           <div className="card-action">
             <Link to={songUrl}>View</Link>
-            <Link to={songUrl + '/edit'}>Edit</Link>
+            <Link to={songUrl + "/edit"}>Edit</Link>
             {youTubeLink}
           </div>
         </div>
       </div>
-    )
+    );
   }
 }

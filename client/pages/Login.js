@@ -1,8 +1,8 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
-import qs from 'qs';
+import React from "react";
+import { withRouter } from "react-router-dom";
+import qs from "qs";
 
-import auth from '../auth';
+import auth from "../auth";
 
 class Login extends React.Component {
   componentDidMount() {
@@ -12,7 +12,7 @@ class Login extends React.Component {
   }
 
   loginByUserId(userId) {
-    auth.login(userId, (loggedIn) => {
+    auth.login(userId, loggedIn => {
       if (!loggedIn) {
         return;
       }
@@ -20,9 +20,11 @@ class Login extends React.Component {
       const queryParams = qs.parse(location.search);
 
       if (queryParams.nextUrl || queryParams.nextPathName) {
-        this.props.history.replace(queryParams.nextUrl || queryParams.nextPathName);
+        this.props.history.replace(
+          queryParams.nextUrl || queryParams.nextPathName
+        );
       } else {
-        this.props.history.replace('/welcome');
+        this.props.history.replace("/welcome");
       }
     });
   }
@@ -32,20 +34,29 @@ class Login extends React.Component {
     const queryParams = qs.parse(location.search);
 
     let loginDisabled = !!queryParams.success || auth.loggedIn();
-    let nextUrl = queryParams ? queryParams.nextPathName ? queryParams.nextPathName : '' : '';
+    let nextUrl = queryParams
+      ? queryParams.nextPathName ? queryParams.nextPathName : ""
+      : "";
     return (
-      <div className='card login'>
+      <div className="card login">
         <div className="card-content">
           <h2>Welcome to Circle's Mediasite!</h2>
           <p>This is the place that folks come when they need media.</p>
           <a
-            className={ 'btn btn-large waves-effect btn-primary' + (loginDisabled ? ' disabled' : '') }
-            href={'/api/v1/cityoauth/login/' + (nextUrl ? '?nextUrl=' + nextUrl : '')}>
-            { !loginDisabled ? 'Login with The City!' : 'Logging in...' }
+            className={
+              "btn btn-large waves-effect btn-primary" +
+              (loginDisabled ? " disabled" : "")
+            }
+            href={
+              "/api/v1/cityoauth/login/" +
+              (nextUrl ? "?nextUrl=" + nextUrl : "")
+            }
+          >
+            {!loginDisabled ? "Login with The City!" : "Logging in..."}
           </a>
         </div>
       </div>
-    )
+    );
   }
 }
 

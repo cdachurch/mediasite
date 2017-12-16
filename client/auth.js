@@ -1,4 +1,4 @@
-import MediasiteApi from './api/MediasiteApi';
+import MediasiteApi from "./api/MediasiteApi";
 
 export default {
   login(userId, cb) {
@@ -19,7 +19,7 @@ export default {
       return;
     }
 
-    MediasiteApi.login(userId, (res) => {
+    MediasiteApi.login(userId, res => {
       if (res.authenticated) {
         localStorage.token = res.token;
         localStorage.userId = userId;
@@ -33,7 +33,7 @@ export default {
         }
         this.onChange(false);
       }
-    })
+    });
   },
 
   getToken() {
@@ -54,4 +54,4 @@ export default {
   },
 
   onChange() {}
-}
+};

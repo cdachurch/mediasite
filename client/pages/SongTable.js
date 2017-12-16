@@ -1,16 +1,16 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
+import React from "react";
+import { withRouter } from "react-router-dom";
 
-import MediasiteApi from '../api/MediasiteApi';
+import MediasiteApi from "../api/MediasiteApi";
 
-import SongTileGroup from './../components/SongTileGroup';
-import SearchBar from './../components/SearchBar';
+import SongTileGroup from "./../components/SongTileGroup";
+import SearchBar from "./../components/SearchBar";
 
 class FilterableSongTable extends React.Component {
   timeout = null;
 
   state = {
-    searchText: '',
+    searchText: "",
     songData: [],
     isLoading: true
   };
@@ -21,7 +21,7 @@ class FilterableSongTable extends React.Component {
 
   componentWillMount() {
     const { query } = this.props.location;
-    const searchText = query && query.searchText ? query.searchText : '';
+    const searchText = query && query.searchText ? query.searchText : "";
     this.setState({
       searchText: searchText
     });
@@ -31,16 +31,16 @@ class FilterableSongTable extends React.Component {
     this.setState({
       isLoading: true
     });
-    if (searchText !== '') {
+    if (searchText !== "") {
       // Set searchText query parameter
       this.props.history.replace(`/songs?searchText=${searchText}`);
     } else {
-      this.props.history.replace('/songs');
+      this.props.history.replace("/songs");
     }
 
     if (this.state.songData.length === 0) {
       // Only load song data the first time...
-      MediasiteApi.getSongs(searchText, (songData) => {
+      MediasiteApi.getSongs(searchText, songData => {
         this.setState({
           songData: songData.data,
           isLoading: false
@@ -53,9 +53,9 @@ class FilterableSongTable extends React.Component {
     }
   }
 
-  handleUserInput = (searchText) => {
+  handleUserInput = searchText => {
     this.setState({
-      searchText  // TODO: Has to be a way to do this stuff without setting state twice
+      searchText // TODO: Has to be a way to do this stuff without setting state twice
     });
     this.getSongsFromApi(searchText);
   };
@@ -63,18 +63,23 @@ class FilterableSongTable extends React.Component {
   render() {
     return (
       <div>
-        <SearchBar searchText={this.state.searchText}
-                   onUserInput={this.handleUserInput} />
-        {this.state.isLoading ?
+        <SearchBar
+          searchText={this.state.searchText}
+          onUserInput={this.handleUserInput}
+        />
+        {this.state.isLoading ? (
           <div className="progress">
-            <div className="indeterminate"></div>
-          </div> :
-          <SongTileGroup songs={this.state.songData}
-                         searchText={this.state.searchText}/>
-        }
+            <div className="indeterminate" />
+          </div>
+        ) : (
+          <SongTileGroup
+            songs={this.state.songData}
+            searchText={this.state.searchText}
+          />
+        )}
       </div>
     );
   }
 }
 
-export default withRouter(FilterableSongTable)
+export default withRouter(FilterableSongTable);

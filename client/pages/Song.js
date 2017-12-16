@@ -1,11 +1,11 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
+import React from "react";
+import { withRouter } from "react-router-dom";
 
-import SongSheetConfiguratorCard from '../components/SongSheetConfigurator';
-import YouTube from '../components/YouTube';
-import SongData from '../components/SongData';
-import MediasiteApi from '../api/MediasiteApi';
-import { Transposer } from '../mediacodec/Transposer';
+import SongSheetConfiguratorCard from "../components/SongSheetConfigurator";
+import YouTube from "../components/YouTube";
+import SongData from "../components/SongData";
+import MediasiteApi from "../api/MediasiteApi";
+import { Transposer } from "../mediacodec/Transposer";
 
 class Song extends React.Component {
   state = {
@@ -14,7 +14,7 @@ class Song extends React.Component {
   };
 
   componentDidMount() {
-    MediasiteApi.getSongById(this.props.match.params.songId, (songData) => {
+    MediasiteApi.getSongById(this.props.match.params.songId, songData => {
       this.setState({
         songData: songData.data,
         isLoading: false
@@ -26,7 +26,7 @@ class Song extends React.Component {
     if (this.state.isLoading) {
       return (
         <div className="progress">
-            <div className="indeterminate"></div>
+          <div className="indeterminate" />
         </div>
       );
     }
@@ -38,15 +38,23 @@ class Song extends React.Component {
 
     let youtubeArea;
     if (this.state.songData.youtubeLink) {
-      youtubeArea = <YouTube youTubeLink={this.state.songData.youtubeLink}/>;
+      youtubeArea = <YouTube youTubeLink={this.state.songData.youtubeLink} />;
     } else {
       youtubeArea = <div>This song doesn't have a YouTube link yet.</div>;
     }
     let songConfiguratorArea;
     if (this.state.songData.songData.parts) {
-      songConfiguratorArea = <SongSheetConfiguratorCard songKey={key || this.state.songData.songKey} songId={this.props.match.params.songId} history={this.props.history} />
+      songConfiguratorArea = (
+        <SongSheetConfiguratorCard
+          songKey={key || this.state.songData.songKey}
+          songId={this.props.match.params.songId}
+          history={this.props.history}
+        />
+      );
     } else {
-      songConfiguratorArea = <div>This song doesn't have a chart attached yet.</div>;
+      songConfiguratorArea = (
+        <div>This song doesn't have a chart attached yet.</div>
+      );
     }
     return (
       <div>

@@ -1,7 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-import { SongsPrinted, SongsInDatabase, UsersInDatabase } from '../components/MediasiteStats';
+import {
+  SongsPrinted,
+  SongsInDatabase,
+  UsersInDatabase
+} from "../components/MediasiteStats";
 
 const Welcome = () => {
   return (
@@ -10,14 +14,16 @@ const Welcome = () => {
         <h2>Circle's Mediasite</h2>
         <p>Some stats about the mediasite:</p>
         <div className="row">
-          <SongsPrinted></SongsPrinted>
-          <SongsInDatabase></SongsInDatabase>
-          <UsersInDatabase></UsersInDatabase>
+          <SongsPrinted />
+          <SongsInDatabase />
+          <UsersInDatabase />
         </div>
-        <Link className='btn btn-large btn-primary' to='/songs'>Song Search</Link>
+        <Link className="btn btn-large btn-primary" to="/songs">
+          Song Search
+        </Link>
       </div>
     </div>
-  )
+  );
 };
 
 export default Welcome;
