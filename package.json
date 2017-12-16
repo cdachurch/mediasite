@@ -52,5 +52,10 @@
     "start": "dev_appserver.py server/app.yaml --port=8078 --admin_port=9078 --storage_path=./data/",
     "bower-install": "bower install",
     "format-js": "prettier 'client/**/*.js' --write"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "singleQuote": true,
+    "tabWidth": 4
   }
 }
